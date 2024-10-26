@@ -3,28 +3,44 @@ import pandas as pd
 import os
 import shutil
 
-def extract_raw_data(raw_folder_path, bronze_folder_path, log_file):
-    processed_files = set()
+
+def load_log(log_file):
+    processed_files = {}
     if os.path.exists(log_file):
         with open(log_file, 'r') as f:
-            processed_files = set(f.read().splitlines())
+            for line in f:
+                file, mod_time = line.strip().split(',')
+                processed_files[file] = float(mod_time)
+    return processed_files
+
+def save_log(log_file, processed_files):
+    """Save the processed files with their modification times to the log file."""
+    with open(log_file, 'w') as f:
+        for file, mod_time in processed_files.items():
+            f.write(f"{file},{mod_time}\n")
+
+def extract_raw_data(raw_folder_path, bronze_folder_path, log_file):
+    processed_files = load_log(log_file)
+    new_or_modified_files = []
+
     if not os.path.isdir(raw_folder_path) or not os.path.isdir(bronze_folder_path):
-        return {"status": "error", "message": "Invalid folder path(s)"}
+        return "Invalid folder path(s)"
     try:
-        new_files = [file for file in os.listdir(raw_folder_path) if file.endswith('.csv') and file not in processed_files]
-        for file in new_files:
-            raw_file_path = os.path.join(raw_folder_path, file)
-            bronze_file_path = os.path.join(bronze_folder_path, f'bronze_{file}')
+        for file in os.listdir(raw_folder_path):
+            if file.endswith('.csv'):
+                raw_file_path = os.path.join(raw_folder_path, file)
+                bronze_file_path = os.path.join(bronze_folder_path, f'bronze_{file}')
+                
+                current_mod_time = os.path.getmtime(raw_file_path) # Check if file is new or modified
+                if file not in processed_files or processed_files[file] < current_mod_time:
+                    shutil.copy(raw_file_path, bronze_file_path)     
+                    print(f"Processed file: {file}")
+                    processed_files[file] = current_mod_time
+                    new_or_modified_files.append(file)
 
-            shutil.copy(raw_file_path, bronze_file_path)      
+                save_log(log_file, processed_files)
 
-            with open(log_file, 'a') as f:
-                f.write(f'{file}\n')
-        if not new_files:
-            print('no new files to process')
-        else:
-            print(new_files)
-        return new_files
+        return new_or_modified_files
     except Exception as ex:
         print(f"Error extracting data from raw folder: {ex}")
         return
