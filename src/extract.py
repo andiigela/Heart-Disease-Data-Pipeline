@@ -43,10 +43,8 @@ def extract_raw_data(raw_folder_path, bronze_folder_path, log_file):
         for file in files:
             if process_file(file, raw_folder_path, bronze_folder_path, processed_files):
                 new_or_modified_files.append(file)
-
         # Save the updated log after processing files
         save_log(log_file, processed_files)
-
         if not new_or_modified_files:
             print("No new or modified files to process.")
         return new_or_modified_files
