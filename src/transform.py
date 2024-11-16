@@ -1,12 +1,13 @@
 import pandas as pd
 import os
 import json
+from pyspark.sql import SparkSession
 def get_file_modification_time(filepath):
     return os.path.getmtime(filepath)
 def transform_to_silver_layer(bronze_filename, timestamp_file="timestamp_metadata.json"):
     timestamp_path = f"C:/Users/andig/Desktop/Punim Diplome/Heart-Disease-Data-Pipeline/data/{timestamp_file}"
     bronze_filepath = f"C:/Users/andig/Desktop/Punim Diplome/Heart-Disease-Data-Pipeline/data/bronze/{bronze_filename}"
-    silver_filepath = f"C:/Users/andig/Desktop/Punim Diplome/Heart-Disease-Data-Pipeline/data/aggregated/silver_{bronze_filename}"
+    silver_filepath = f"C:/Users/andig/Desktop/Punim Diplome/Heart-Disease-Data-Pipeline/data/cleaned/silver_{bronze_filename}"
 
     current_mod_time = get_file_modification_time(bronze_filepath)
     # Initialize timestamp data if the file doesn't exist
@@ -24,8 +25,9 @@ def transform_to_silver_layer(bronze_filename, timestamp_file="timestamp_metadat
     bronze_df = pd.read_csv(bronze_filepath)
     # Apply transformations to the DataFrame
     silver_df = transform_data(bronze_df)
-    # save silver df to the aggregated folder
+    # save silver df to the cleaned folder
     silver_df.to_csv(silver_filepath, index=False)
+
     print(f"Transformed data saved to aggregated folder with name: silver_{bronze_filename}")
 
     # Update the timestamp data
@@ -45,7 +47,7 @@ def transform_data(bronze_df):
     df_filtered.loc[:, 'Data_Value'] = df_filtered['Data_Value'].fillna(df_filtered['Data_Value'].median())
     df_filtered = df_filtered.dropna()
     df_filtered = df_filtered.drop_duplicates()
-    df_filtered['Data_Value_Unit'] = df_filtered['Data_Value_Unit'].replace('per 100,000 population', 100000)
+    df_filtered['Data_Value_Unit'] = df_filtered['Data_Value_Unit'].replace('per 100,000 population', 100000).astype(int)
     df_filtered = df_filtered.loc[df_filtered['Stratification1'] != 'Overall']  # Gender
     df_filtered['Smoothing_3_Year_Avg_Rate'] = df_filtered['Data_Value_Type'].apply(
         lambda x: 'Spatially Smoothed' if 'Spatially Smoothed' in x else 'Not Spatially Smoothed'
