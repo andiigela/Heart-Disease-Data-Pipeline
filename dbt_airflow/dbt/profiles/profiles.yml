@@ -1,0 +1,58 @@
+databricks_dbt:
+  outputs:
+    dev:
+      catalog: dev
+      host: dbc-b2b4296e-0cfb.cloud.databricks.com
+      http_path: sql/protocolv1/o/3794778074668846/1211-095651-vcfvacfw
+      schema: demo_db
+      threads: 4
+      token: dapi8160591b38569d886fb54da1a037b735
+      type: databricks
+  target: dev
+dbt_dbc:
+  outputs:
+    dev:
+      dbname: '0'
+      host: '0'
+      pass: andi
+      port: 0
+      schema: '0'
+      threads: 4
+      type: postgres
+      user: andi
+  target: dev
+mydbt_mydbc:
+  outputs:
+    dev:
+      catalog: dev
+      host: dbc-b2b4296e-0cfb.cloud.databricks.com
+      http_path: sql/protocolv1/o/3794778074668846/1203-095519-wdxdtjem
+      schema: demo_db
+      threads: 4
+      token: dapi8160591b38569d886fb54da1a037b735
+      type: databricks
+  target: dev
+oms_dbt_proj:
+  outputs:
+    dev:
+      dbname: SLEEKMART_OMS
+      host: qt53644.ap-southeast-2
+      pass: letra12345
+      port: 5432
+      schema: L3_CONSUMPTION
+      threads: 1
+      type: postgres
+      user: SleekData
+  target: dev
+repo_dbt:
+  outputs:
+    dev:
+      dbname: mydb
+      host: localhost
+      pass: postgres
+      port: 5432
+      schema: public
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
