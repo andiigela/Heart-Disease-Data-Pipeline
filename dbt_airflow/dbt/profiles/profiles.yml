@@ -3,7 +3,7 @@ databricks_dbt:
     dev:
       catalog: dev
       host: dbc-b2b4296e-0cfb.cloud.databricks.com
-      http_path: sql/protocolv1/o/3794778074668846/1211-095651-vcfvacfw
+      http_path: sql/protocolv1/o/3794778074668846/1219-183854-1gyiqvvn
       schema: demo_db
       threads: 4
       token: dapi8160591b38569d886fb54da1a037b735
@@ -26,7 +26,7 @@ mydbt_mydbc:
     dev:
       catalog: dev
       host: dbc-b2b4296e-0cfb.cloud.databricks.com
-      http_path: sql/protocolv1/o/3794778074668846/1203-095519-wdxdtjem
+      http_path: sql/protocolv1/o/3794778074668846/1219-183854-1gyiqvvn
       schema: demo_db
       threads: 4
       token: dapi8160591b38569d886fb54da1a037b735

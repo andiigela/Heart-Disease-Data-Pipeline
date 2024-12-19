@@ -37,6 +37,6 @@ models:
     facts:
       +materialized: incremental
     staging:
-      +materialized: ephemeral
+      +materialized: table
     gold:
       +materialized: table
