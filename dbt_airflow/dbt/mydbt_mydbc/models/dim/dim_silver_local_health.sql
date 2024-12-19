@@ -1,4 +1,4 @@
-WITH dim_patient AS (
+WITH dim_silver_local_health AS (
     SELECT
         *,
         CASE
@@ -31,10 +31,8 @@ WITH dim_patient AS (
         END AS patient_blood_sugar_level,
         CASE
             WHEN patient_systolic_blood_pressure < 90 THEN 'Low'
-            WHEN patient_systolic_blood_pressure BETWEEN 90 AND 120 THEN 'Normal'
-            WHEN patient_systolic_blood_pressure BETWEEN 121 AND 139 THEN 'Elevated'
-            WHEN patient_systolic_blood_pressure BETWEEN 140 AND 179 THEN 'High'
-            WHEN patient_systolic_blood_pressure >= 180 THEN 'Critical'
+            WHEN patient_systolic_blood_pressure BETWEEN 90 AND 140 THEN 'Moderate'
+            WHEN patient_systolic_blood_pressure > 140 THEN 'Critical'
             ELSE 'Unknown'
         END AS patient_systolic_bp_level,
        CASE
@@ -51,4 +49,4 @@ WITH dim_patient AS (
         END AS patient_heart_rate_category
     FROM {{ ref('stg_silver_local_health') }}
 )
-SELECT * FROM dim_patient;
+SELECT * FROM dim_silver_local_health;
