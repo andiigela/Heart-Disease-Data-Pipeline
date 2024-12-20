@@ -1,4 +1,5 @@
 /* normalization formula => X - Min/ Max - Min = Res, values from 0-1  */
+/* not including categorical data anymore */
 with fact_normalization as (
     Select 
         *,
@@ -16,34 +17,46 @@ with fact_normalization as (
         (MAX(patient_troponin) OVER() - MIN(patient_troponin) OVER()) as normalized_troponin
     FROM {{ ref('dim_silver_local_health') }}
 ),
-categorical_to_numerical_values AS (
+categorical_to_numerical_values AS ( 
     Select 
-        *,
+        patient_age,
+        ck_mb,
+        normalized_ck_mb,
         CASE 
             WHEN patient_ck_mb_level = 'Low' THEN 0
             WHEN patient_ck_mb_level = 'Moderate' THEN 1
             WHEN patient_ck_mb_level = 'Critical' THEN 2
         END AS patient_ck_mb_level_num,
+        patient_troponin,
+        normalized_troponin,
         CASE
             WHEN patient_troponin_level = 'Low' THEN 0
             WHEN patient_troponin_level = 'Moderate' THEN 1
             WHEN patient_troponin_level = 'Critical' THEN 2
         END AS patient_troponin_level_num,
+        patient_blood_sugar,
+        normalized_blood_sugar,
         CASE
             WHEN patient_diabetes_risk = 'Low' THEN 0
             WHEN patient_diabetes_risk = 'Moderate' THEN 1
             WHEN patient_diabetes_risk = 'Critical' THEN 2
         END AS patient_diabetes_risk_num,
+        patient_systolic_blood_pressure,
+        normalized_systolic_bp,
         CASE
             WHEN patient_systolic_bp_level = 'Low' THEN 0
             WHEN patient_systolic_bp_level = 'Moderate' THEN 1
             WHEN patient_systolic_bp_level = 'Critical' THEN 2
         END AS patient_systolic_bp_level_num,
+        patient_diastolic_blood_pressure,
+        normalized_diastolic_bp,
         CASE
             WHEN patient_diastolic_bp_level = 'Low' THEN 0
             WHEN patient_diastolic_bp_level = 'Moderate' THEN 1
             WHEN patient_diastolic_bp_level = 'Critical' THEN 2
         END AS patient_diastolic_bp_level_num,
+        patient_heart_rate,
+        normalized_patient_heart_rate,
         CASE
             WHEN patient_heart_rate_category = 'Low' THEN 0
             WHEN patient_heart_rate_category = 'Moderate' THEN 1
@@ -60,7 +73,8 @@ categorical_to_numerical_values AS (
             WHEN patient_heart_stress_level = 'Moderate' THEN 1
             WHEN patient_heart_stress_level = 'High' THEN 2
             WHEN patient_heart_stress_level = 'Critical' THEN 3
-        END AS patient_heart_stress_level_num 
+        END AS patient_heart_stress_level_num,
+        patient_gender
     FROM fact_normalization
 )
 Select * from categorical_to_numerical_values

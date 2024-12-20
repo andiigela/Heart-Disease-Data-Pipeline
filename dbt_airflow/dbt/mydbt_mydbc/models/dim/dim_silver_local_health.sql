@@ -63,7 +63,8 @@ WITH dim_silver_local_health AS (
         WHEN (patient_heart_rate > 120 OR patient_systolic_blood_pressure BETWEEN 141 AND 180 OR patient_diastolic_blood_pressure BETWEEN 91 AND 110) THEN 'High'
         WHEN (patient_heart_rate > 180 OR patient_systolic_blood_pressure > 180 OR patient_diastolic_blood_pressure > 110) THEN 'Critical'
         ELSE 'Unknown'
-        END AS patient_heart_stress_level
+        END AS patient_heart_stress_level,
+        patient_result
     FROM {{ ref('stg_silver_local_health') }}
 )
 SELECT * FROM dim_silver_local_health;
