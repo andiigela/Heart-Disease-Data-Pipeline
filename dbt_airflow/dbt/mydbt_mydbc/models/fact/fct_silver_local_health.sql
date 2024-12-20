@@ -109,6 +109,7 @@ combined_heart_rate_risk_score AS (
 )
 Select  
         patient_age,
+        age_group,
         ck_mb,
         normalized_ck_mb,
         patient_ck_mb_level_num,
@@ -129,6 +130,7 @@ Select
         patient_heart_rate_category_num,
         patient_hypertension_risk_num,
         patient_heart_stress_level_num,
+        gender,
         patient_gender,
         combined_risk_score,
         combined_risk_score_level,
