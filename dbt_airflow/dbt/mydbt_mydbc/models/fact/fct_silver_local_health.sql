@@ -129,10 +129,12 @@ Select
         normalized_patient_heart_rate,
         patient_heart_rate_category_num,
         patient_hypertension_risk_num,
+        patient_hypertension_risk,
         patient_heart_stress_level_num,
+        patient_heart_stress_level,
         gender,
         patient_gender,
         combined_risk_score,
         combined_risk_score_level,
-        patient_result 
+        patient_result
     FROM combined_heart_rate_risk_score

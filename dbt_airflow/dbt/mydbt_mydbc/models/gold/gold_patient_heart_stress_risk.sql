@@ -1,7 +1,6 @@
 /* Te gjindet mesataret e zemres dhe shtypjes se gjakut duke u bazuar ne risk score e kombinuar dhe stres levelin duke gjetur numrin e 
 rasteve kritike te stres levelit te pacientit */
-/* Helps build models to predict stress levels based on combined risk scores.
-    Ju ndihmon modeleve te predikojne levele te stresit duke u bazuar ne score e pergjithshem shendetsore dhe levelit te stresit 
+/* Ju ndihmon modeleve te predikojne levele te stresit duke u bazuar ne score e pergjithshem shendetsore dhe levelit te stresit 
     te pacientit */
 WITH stress_risk_interaction AS (
     SELECT
