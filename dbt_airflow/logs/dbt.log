@@ -1,0 +1,14 @@
+[0m10:22:53.567644 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FF3724B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FF372540>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FF372420>]}
+
+
+============================== 10:22:53.584193 | 6e67b798-a889-4acc-93ca-2d966d1d9596 ==============================
+[0m10:22:53.584193 [info ] [MainThread]: Running with dbt=1.8.7
+[0m10:22:53.584193 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'version_check': 'True', 'log_path': 'logs', 'debug': 'False', 'profiles_dir': 'C:\\Users\\andig\\.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'static_parser': 'True', 'invocation_command': 'dbt run', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m10:22:53.584193 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\andig\Desktop\Punim Diplome\Heart-Disease-Data-Pipeline\dbt_airflow\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m10:22:53.592719 [debug] [MainThread]: Command `dbt run` failed at 10:22:53.592206 after 0.17 seconds
+[0m10:22:53.592719 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FF0C32F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FE40C7D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000178FE40C860>]}
+[0m10:22:53.592719 [debug] [MainThread]: Flushing usage events
