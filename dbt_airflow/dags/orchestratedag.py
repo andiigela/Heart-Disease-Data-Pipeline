@@ -13,7 +13,7 @@ default_args = {
 }
 
 def trigger_dlt_pipeline():
-    url = "https://dbc-b2b4296e-0cfb.cloud.databricks.com/api/2.0/pipelines/b585cbdb-af9a-4d91-899a-73490233ca44/start"
+    url = "https://dbc-b2b4296e-0cfb.cloud.databricks.com/api/2.0/pipelines/990ccc63-9702-4837-b1e6-e986ee7c716e/start"
     headers = {
         "Authorization": "Bearer dapi8160591b38569d886fb54da1a037b735",
         "Content-Type": "application/json"
