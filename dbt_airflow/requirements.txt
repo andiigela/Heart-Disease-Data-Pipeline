@@ -5,3 +5,4 @@ astronomer-cosmos
 apache-airflow-providers-dbt-cloud
 apache-airflow-providers-databricks
 astronomer-cosmos[dbt.all]
+astro-run-dag # This package is needed for the astro run command. It will be removed before a deploy

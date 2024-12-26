@@ -136,5 +136,10 @@ Select
         patient_gender,
         combined_risk_score,
         combined_risk_score_level,
-        patient_result
+        patient_result,
+        load_time
     FROM combined_heart_rate_risk_score
+WHERE 1 = 1
+{% if is_incremental() %}
+    AND load_time > (select max(load_time) from {{ this }})
+{% endif %}
